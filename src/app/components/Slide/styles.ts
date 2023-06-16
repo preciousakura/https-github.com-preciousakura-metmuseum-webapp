@@ -13,43 +13,43 @@ export const Box = styled.ul`
     height: 100vh;
     position: absolute;
     background: black;
-    opacity: 0.6;
+    opacity: 0.8;
     z-index: 9;
   }
 `;
 
-export const Image = styled.div<{ url: string }>`
-  background: url(${(props) => props.url});
+export const ImageContent = styled.div<{ url: string }>`
+  background: url(${(props) => props.url}) center bottom;
+  background-color: black;
   background-size: cover;
-  background-position: center;
   height: 100vh;
 
   position: absolute;
 
   width: 100%;
   height: 100vh;
-  
+
   transition: opacity 2s ease;
-  
+
   &.active {
     opacity: 1;
   }
-  
+
   &.inactive {
     opacity: 0;
   }
 `;
 
-export const CircleController = styled.button<{ isCurrent: boolean }>`
+export const CircleController = styled.button<{ iscurrent: number }>`
   border: 0;
   cursor: pointer;
 
-  width: 4px;
-  height: 4px;
+  width: 8px;
+  height: 8px;
   background-color: white;
   border-radius: 100%;
 
-  filter: ${(props) => (props.isCurrent ? "brightness(0.6)" : "brightness(1)")};
+  filter: ${(props) => (props.iscurrent ? "brightness(0.6)" : "brightness(1)")};
 
   &:hover {
     filter: brightness(0.6);
@@ -61,7 +61,7 @@ export const CircleControllerGroup = styled.div`
   flex-direction: row;
 
   position: absolute;
-  gap: 3px;
+  gap: 10px;
   z-index: 50;
 
   left: 50%;
@@ -79,10 +79,12 @@ export const ImageData = styled.div`
   padding: 0 15px;
 
   h5 {
-    font-size: 9px;
+    font-weight: 400;
+    font-size: 18px;
   }
 
   h6 {
-    font-size: 7px;
+    font-weight: 400;
+    font-size: 14px;
   }
 `;

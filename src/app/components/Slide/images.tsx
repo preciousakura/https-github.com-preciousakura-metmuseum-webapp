@@ -16,11 +16,10 @@ export const slide = [
   },
   {
     url: img2,
-    title:
-      "View of the Grand Canal: Santa Maria della Salute and the Dogana from Campo Santa Maria Zobenigo",
-    year: "about 1743",
-    author: "Bernardo Bellotto",
-    country: "Italian",
+    title: "Landscape at Louveciennes (Autumn)",
+    year: "1870",
+    author: "Camille Pissarro",
+    country: "French",
   },
   {
     url: img3,

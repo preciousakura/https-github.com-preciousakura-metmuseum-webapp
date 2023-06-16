@@ -3,7 +3,7 @@ import {
   Box,
   CircleController,
   CircleControllerGroup,
-  Image,
+  ImageContent,
   ImageData,
 } from "./styles";
 import { useEffect, useState } from "react";
@@ -37,7 +37,7 @@ export function Slide() {
         </h6>
       </ImageData>
       {slide.map((s, i) => (
-        <Image
+        <ImageContent
           className={i === currentIndex ? "active" : "inactive"}
           url={s.url.src}
           key={i}
@@ -49,7 +49,7 @@ export function Slide() {
         {slide.map((s, i) => (
           <CircleController
             onClick={() => setCurrentIndex(i)}
-            isCurrent={i === currentIndex}
+            iscurrent={i === currentIndex ? 1 : 0}
             key={i}
           />
         ))}
