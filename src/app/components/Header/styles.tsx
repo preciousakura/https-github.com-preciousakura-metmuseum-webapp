@@ -9,7 +9,15 @@ export const Box = styled.ul`
   gap: 30px;
   align-items: center;
 
-  padding: 50px;
+  padding: 30px 50px;
+
+  width: 100%;
+  align-items: center;
+  justify-content: end;
+
+  -webkit-box-shadow: 0px 16px 16px -19px rgba(0, 0, 0, 0.56);
+  -moz-box-shadow: 0px 16px 16px -19px rgba(0, 0, 0, 0.56);
+  box-shadow: 0px 16px 16px -19px rgba(0, 0, 0, 0.56);
 
   li {
     list-style: none;
@@ -29,6 +37,7 @@ export const Box = styled.ul`
       }
     }
     a {
+      text-decoration: none;
       color: white;
       font-size: 1rem;
       cursor: pointer;

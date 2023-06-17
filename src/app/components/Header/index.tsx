@@ -1,19 +1,20 @@
 import { useTheme } from "@/app/lib";
 import { Box } from "./styles";
 import { MdModeNight, MdSunny } from "react-icons/md";
+import Link from "next/link";
 
 export function Header() {
   const { changeToDarkMode, changeToLightMode } = useTheme();
   return (
     <Box>
       <li>
-        <a>Página Inicial</a>
+        <Link href="/">Página Inicial</Link>
       </li>
       <li>
-        <a>EXPLORAR</a>
+        <Link href="/explore">EXPLORAR</Link>
       </li>
       <li>
-        <a>Meus Favoritos</a>
+        <Link href="/favorites">Meus Favoritos</Link>
       </li>
       <li className="colorMode">
         <MdModeNight size={22} color="white" onClick={changeToDarkMode} />

@@ -1,8 +1,8 @@
 const light = {
   isDark: false,
   colors: {
-    text: "#fff",
-    background: "#fff",
+    text: "#171900",
+    background: "#f1f1f1",
     primary: {
       50: "#fffdde",
       100: "#f6efb7",

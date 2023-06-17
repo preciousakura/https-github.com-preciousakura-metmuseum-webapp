@@ -1,8 +1,8 @@
 const dark = {
   isDark: true,
   colors: {
-    text: "#fff",
-    background: '#fff',
+    text: "#c7ae1f",
+    background: "#171900",
     primary: {
       50: "#fffdde",
       100: "#f6efb7",
