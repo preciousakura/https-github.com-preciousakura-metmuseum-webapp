@@ -14,8 +14,13 @@ export const Box = styled.div`
   align-items: center;
   border: 1px solid white;
 
-  .icon {
+  .icon,
+  .clean {
     padding: 0 20px;
+  }
+
+  .clean {
+    cursor: pointer;
   }
 
   input {

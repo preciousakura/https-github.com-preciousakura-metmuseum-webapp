@@ -34,8 +34,9 @@ export const Box = styled.ul`
       cursor: pointer;
       text-transform: uppercase;
 
+      font-weight: 700;
+      transition: all 0.2s ease;
       &:hover {
-        font-weight: 700;
         color: ${(props) => props.theme.colors.primary[500]};
       }
     }

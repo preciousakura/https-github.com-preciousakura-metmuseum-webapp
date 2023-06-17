@@ -1,9 +1,8 @@
-import { SearchHome, Slide } from "./components";
+import { Slide } from "./components";
 
 export default function Home() {
   return (
     <main>
-      <SearchHome />
       <Slide />
     </main>
   );

@@ -10,7 +10,7 @@ export function Header() {
         <a>Página Inicial</a>
       </li>
       <li>
-        <a>Informações Gerais</a>
+        <a>EXPLORAR</a>
       </li>
       <li>
         <a>Meus Favoritos</a>
