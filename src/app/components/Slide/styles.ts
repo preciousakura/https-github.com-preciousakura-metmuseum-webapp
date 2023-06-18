@@ -1,6 +1,7 @@
+'use client'
 import styled from "styled-components";
 
-export const Box = styled.ul`
+export const Box = styled.div`
   position: relative;
 
   width: 100%;
