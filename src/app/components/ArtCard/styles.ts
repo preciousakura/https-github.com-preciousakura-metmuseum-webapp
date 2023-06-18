@@ -47,13 +47,16 @@ export const Box = styled.div`
     right: 10px;
     padding: 5px;
     cursor: pointer;
+    border: none;
+    background: none;
     svg {
-      color: ${(props) => props.theme.colors.primary[500]};
+      color: #e11d48;
     }
   }
   .public-domain {
     position: absolute;
-    top: 10px;
+    top: 0;
+    left: 25px;
     background: #0284c7;
     width: 30px;
     height: 40px;
