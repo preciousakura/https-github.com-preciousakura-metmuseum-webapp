@@ -26,7 +26,7 @@ export function ArtCard({ art }: ArtCardProps) {
       {art.isPublicDomain && (
         <Tooltip title="Item de domínio público">
           <div className="public-domain">
-            <BiWorld size={23} color="white" />
+            <BiWorld size={20} color="white" />
           </div>
         </Tooltip>
       )}

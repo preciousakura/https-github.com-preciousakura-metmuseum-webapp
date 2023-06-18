@@ -53,11 +53,28 @@ export const Box = styled.div`
   }
   .public-domain {
     position: absolute;
-
     top: 10px;
     background: #0284c7;
-    padding: 5px;
+    width: 30px;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+
+    &:after {
+      content: "";
+      width: 30px;
+      top: 100%;
+      position: absolute;
+      display: block;
+      border-width: 0 15px 15px 15px;
+      border-color: #0284c7;
+      border-bottom-color: transparent;
+      border-style: solid;
+      box-sizing: border-box;
+    }
   }
 `;
 
