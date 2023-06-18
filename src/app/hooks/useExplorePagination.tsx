@@ -3,7 +3,7 @@ import { objects } from "../services/objects";
 import { IData } from "../types/data";
 
 export function useExplorePagination() {
-  const [data, setData] = useState<IData>();
+  const [objectsData, setObjectsData] = useState<IData>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -12,11 +12,14 @@ export function useExplorePagination() {
     objects
       .getAll()
       .then((objects: IData) => {
-        setData(objects);
+        setObjectsData(objects);
       })
       .catch((err) => setError(err))
       .finally(() => setLoading(false));
   }, []);
 
-  return useMemo(() => ({ loading, error, data }), [loading, error, data]);
+  return useMemo(
+    () => ({ loading, error, objectsData }),
+    [loading, error, objectsData]
+  );
 }
