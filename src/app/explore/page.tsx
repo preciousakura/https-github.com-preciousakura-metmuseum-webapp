@@ -28,36 +28,38 @@ export default function Explore() {
   }
   return (
     <Box>
-      <div className="cards-area">
-        {loading ? (
-          <Spin indicator={antIcon} />
-        ) : artData.length > 0 ? (
-          <div className="cards">
-            {artData.map((d) => {
-              return <ArtCard key={d.objectID} art={d} />;
-            })}
-          </div>
-        ) : (
-          <p>Nenhum dado encontrado</p>
-        )}
-      </div>
-
       {pageLoading ? (
         <Spin indicator={antIcon} />
       ) : (
-        <ConfigProvider
-          theme={{
-            token: {
-              colorPrimary: theme.colors.primary[500],
-            },
-          }}
-        >
-          <Pagination
-            total={objectsData?.total}
-            onChange={onChange}
-            defaultPageSize={10}
-          />
-        </ConfigProvider>
+        <>
+          <div className="cards-area">
+            {loading ? (
+              <Spin indicator={antIcon} />
+            ) : artData.length > 0 ? (
+              <div className="cards">
+                {artData.map((d) => {
+                  return <ArtCard key={d.objectID} art={d} />;
+                })}
+              </div>
+            ) : (
+              <p>Nenhum dado encontrado</p>
+            )}
+          </div>
+
+          <ConfigProvider
+            theme={{
+              token: {
+                colorPrimary: theme.colors.primary[500],
+              },
+            }}
+          >
+            <Pagination
+              total={objectsData?.total}
+              onChange={onChange}
+              defaultPageSize={10}
+            />
+          </ConfigProvider>
+        </>
       )}
     </Box>
   );

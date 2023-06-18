@@ -7,10 +7,12 @@ export const Box = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 70px;
+  
+  min-height: 900px;
 
   .cards-area {
     display: grid;
-    min-height: 810px;
+    min-height: 900px;
     align-items: center;
     p {
       color: ${(props) =>
