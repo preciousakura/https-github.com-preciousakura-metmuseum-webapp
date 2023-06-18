@@ -4,7 +4,7 @@ import { Art } from "../types/art";
 
 export function useExploreData(currentPage: number, objectsId?: number[]) {
   const [data, setData] = useState<Art[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
