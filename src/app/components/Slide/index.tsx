@@ -36,13 +36,7 @@ export function Slide() {
           {slide[currentIndex].year}
         </h6>
       </ImageData>
-      {slide.map((s, i) => (
-        <ImageContent
-          className={i === currentIndex ? "active" : "inactive"}
-          url={s.url.src}
-          key={i}
-        />
-      ))}
+      <ImageContent url={slide[currentIndex].url.src} />
 
       <div className="black-veil" />
       <CircleControllerGroup>

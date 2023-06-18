@@ -8,13 +8,6 @@ import img7 from "../../assets/arts/7.jpg";
 
 export const slide = [
   {
-    url: img1,
-    title: "The Stoning of Saint Stephen",
-    year: "1632",
-    author: "Bartholomeus Breenbergh",
-    country: "Dutch",
-  },
-  {
     url: img2,
     title: "Landscape at Louveciennes (Autumn)",
     year: "1870",

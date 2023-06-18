@@ -28,16 +28,6 @@ export const ImageContent = styled.div<{ url: string }>`
 
   width: 100%;
   height: 100vh;
-
-  transition: opacity 2s ease;
-
-  &.active {
-    opacity: 1;
-  }
-
-  &.inactive {
-    opacity: 0;
-  }
 `;
 
 export const CircleController = styled.button<{ iscurrent: number }>`

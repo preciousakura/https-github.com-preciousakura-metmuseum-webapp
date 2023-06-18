@@ -9,7 +9,7 @@ export const Box = styled.ul<{ ishome: number }>`
     props.ishome
       ? "none"
       : props.theme.isDark
-      ? props.theme.colors.primary[900]
+      ? '#121212'
       : props.theme.colors.primary[500]};
 
   display: flex;
