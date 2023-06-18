@@ -1,8 +1,16 @@
 import styled from "styled-components";
 
-export const Box = styled.ul`
-  position: absolute;
+export const Box = styled.ul<{ ishome: number }>`
+  position: ${(props) => (props.ishome ? "absolute" : "static")};
   z-index: 999;
+  box-sizing: border-box;
+
+  background: ${(props) =>
+    props.ishome
+      ? "none"
+      : props.theme.isDark
+      ? props.theme.colors.primary[900]
+      : props.theme.colors.primary[500]};
 
   display: flex;
   right: 0;
@@ -24,21 +32,29 @@ export const Box = styled.ul`
     &.colorMode {
       gap: 10px;
       display: flex;
-      background: ${(props) => props.theme.colors.primary[900]};
+      background: ${(props) =>
+        props.theme.isDark ? "black" : props.theme.colors.primary[900]};
       padding: 10px;
       border-radius: 30px;
-      svg:hover {
+      svg {
         cursor: pointer;
-        path {
-          &:hover {
-            fill: ${(props) => props.theme.colors.primary[500]};
-          }
+        color: ${(props) =>
+          props.theme.isDark ? props.theme.colors.primary[500] : "white"};
+
+        &:hover {
+          color: ${(props) =>
+            props.theme.isDark ? "white" : props.theme.colors.primary[500]};
         }
       }
     }
     a {
       text-decoration: none;
-      color: white;
+      color: ${(props) =>
+        props.ishome
+          ? "white"
+          : props.theme.isDark
+          ? props.theme.colors.primary[500]
+          : props.theme.colors.primary[900]};
       font-size: 1rem;
       cursor: pointer;
       text-transform: uppercase;
@@ -46,7 +62,12 @@ export const Box = styled.ul`
       font-weight: 700;
       transition: all 0.2s ease;
       &:hover {
-        color: ${(props) => props.theme.colors.primary[500]};
+        color: ${(props) =>
+          props.ishome
+            ? props.theme.colors.primary[500]
+            : props.theme.isDark
+            ? "white"
+            : props.theme.colors.primary[700]};
       }
     }
   }
