@@ -4,7 +4,7 @@ import { ConfigProvider, Pagination, Spin } from "antd";
 import { useExplorePagination } from "../hooks/useExplorePagination";
 import { ArtCard } from "../components";
 import { useExploreData } from "../hooks/useExploreData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "../lib";
 
 import { LoadingOutlined } from "@ant-design/icons";
@@ -23,42 +23,49 @@ export default function Explore() {
     setPage(pageNumber);
   };
 
-  {
-    /* ) :  } */
-  }
+  useEffect(() => {
+    if (objectsData?.total && objectsData.total <= 10) setPage(1);
+  }, [page, objectsData]);
+
   return (
     <Box>
       {pageLoading ? (
         <Spin indicator={antIcon} />
       ) : (
         <>
-          <div className="cards-area">
-            {loading ? (
+          {loading ? (
+            <div className="cards-area-spinner">
               <Spin indicator={antIcon} />
-            ) : artData.length > 0 ? (
-              <div className="cards">
-                {artData.map((d) => {
-                  return <ArtCard key={d.objectID} art={d} />;
-                })}
-              </div>
-            ) : (
-              <p>Nenhum dado encontrado</p>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="cards-area-cards">
+              {objectsData?.total && objectsData.total > 0 ? (
+                <div className="cards">
+                  {artData.map((d) => {
+                    return <ArtCard key={d.objectID} art={d} />;
+                  })}
+                </div>
+              ) : (
+                <p>Nenhum dado encontrado</p>
+              )}
+            </div>
+          )}
 
-          <ConfigProvider
-            theme={{
-              token: {
-                colorPrimary: theme.colors.primary[500],
-              },
-            }}
-          >
-            <Pagination
-              total={objectsData?.total}
-              onChange={onChange}
-              defaultPageSize={10}
-            />
-          </ConfigProvider>
+          {objectsData?.total && objectsData.total > 0 && (
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: theme.colors.primary[500],
+                },
+              }}
+            >
+              <Pagination
+                total={objectsData?.total}
+                onChange={onChange}
+                defaultPageSize={10}
+              />
+            </ConfigProvider>
+          )}
         </>
       )}
     </Box>

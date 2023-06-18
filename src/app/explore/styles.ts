@@ -7,16 +7,18 @@ export const Box = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 70px;
-  
+
   min-height: 900px;
 
-  .cards-area {
+  .cards-area-cards {
     display: grid;
     min-height: 900px;
-    align-items: center;
+    align-items: baseline;
     p {
       color: ${(props) =>
-        props.theme.isDark ? props.theme.colors.trueGray[500] : props.theme.colors.trueGray[300]};
+        props.theme.isDark
+          ? props.theme.colors.trueGray[500]
+          : props.theme.colors.trueGray[300]};
     }
     .cards {
       display: grid;
@@ -25,6 +27,13 @@ export const Box = styled.div`
       padding-bottom: 50px;
     }
   }
+
+  .cards-area-spinner {
+    display: grid;
+    min-height: 900px;
+    align-items: center;
+  }
+
   ul.ant-pagination.css-dev-only-do-not-override-noj3jr {
     margin: 0 auto;
   }

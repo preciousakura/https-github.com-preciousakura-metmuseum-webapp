@@ -1,6 +1,7 @@
-'use client'
+"use client";
 import "./styles/global.css";
 import { App, CustomizedThemeProvider } from "./lib";
+import { FavoritesProvider } from "./context/useFavorites";
 
 export const metadata = {
   title: "The Metropolitan Museum of Art",
@@ -14,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <CustomizedThemeProvider>
-      <App>{children}</App>
+      <FavoritesProvider>
+        <App>{children}</App>
+      </FavoritesProvider>
     </CustomizedThemeProvider>
   );
 }

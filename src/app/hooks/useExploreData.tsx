@@ -4,7 +4,7 @@ import { Art } from "../types/art";
 
 export function useExploreData(currentPage: number, objectsId?: number[]) {
   const [data, setData] = useState<Art[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export function useExploreData(currentPage: number, objectsId?: number[]) {
         })
         .catch((err) => setError(err))
         .finally(() => setLoading(false));
-    }
+    } else setData([]);
   }, [currentPage, objectsId]);
 
   return useMemo(() => ({ loading, error, data }), [loading, error, data]);

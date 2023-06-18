@@ -6,7 +6,7 @@ import { Tooltip } from "antd";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useRef, useState, useEffect } from "react";
 import { useHover } from "usehooks-ts";
-import { isFavorite, setFavorite } from "@/app/utils/localStorange";
+import { useFavorites } from "@/app/context/useFavorites";
 
 interface ArtCardProps {
   art: Art;
@@ -16,9 +16,11 @@ export function ArtCard({ art }: ArtCardProps) {
   const [fav, setFav] = useState(false);
   const favoriteRef = useRef<HTMLButtonElement>(null);
   const isHover = useHover(favoriteRef);
+  const { isFavorite, setFavorite } = useFavorites();
 
   useEffect(() => {
     setFav(isFavorite(art.objectID));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [art]);
 
   const onChangeFavorite = () => {

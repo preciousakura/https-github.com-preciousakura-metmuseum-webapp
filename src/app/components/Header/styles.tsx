@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 export const Box = styled.ul<{ ishome: number }>`
@@ -9,7 +10,7 @@ export const Box = styled.ul<{ ishome: number }>`
     props.ishome
       ? "none"
       : props.theme.isDark
-      ? '#121212'
+      ? "#121212"
       : props.theme.colors.primary[500]};
 
   display: flex;
@@ -38,37 +39,42 @@ export const Box = styled.ul<{ ishome: number }>`
       border-radius: 30px;
       svg {
         cursor: pointer;
-        color: ${(props) =>
-          props.theme.isDark ? props.theme.colors.primary[500] : "white"};
 
         &:hover {
-          color: ${(props) =>
-            props.theme.isDark ? "white" : props.theme.colors.primary[500]};
+          filter: brightness(0.8);
         }
       }
     }
-    a {
-      text-decoration: none;
-      color: ${(props) =>
-        props.ishome
-          ? "white"
-          : props.theme.isDark
-          ? props.theme.colors.primary[500]
-          : props.theme.colors.primary[900]};
-      font-size: 1rem;
-      cursor: pointer;
-      text-transform: uppercase;
+  }
+`;
 
-      font-weight: 700;
-      transition: all 0.2s ease;
-      &:hover {
-        color: ${(props) =>
-          props.ishome
-            ? props.theme.colors.primary[500]
-            : props.theme.isDark
-            ? "white"
-            : props.theme.colors.primary[700]};
-      }
-    }
+export const LinkText = styled(Link)<{ iscurrent: number; ishome: number }>`
+  text-decoration: none;
+  color: ${(props) =>
+    props.ishome
+      ? props.iscurrent
+        ? props.theme.colors.primary[500]
+        : "white"
+      : props.theme.isDark
+      ? props.iscurrent
+        ? props.theme.colors.primary[500]
+        : "white"
+      : props.iscurrent
+      ? props.theme.colors.primary[900]
+      : "white"};
+
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+
+  font-weight: 700;
+  transition: all 0.2s ease;
+  &:hover {
+    color: ${(props) =>
+      props.ishome
+        ? props.theme.colors.primary[500]
+        : props.theme.isDark
+        ? props.theme.colors.primary[500]
+        : props.theme.colors.primary[900]};
   }
 `;
