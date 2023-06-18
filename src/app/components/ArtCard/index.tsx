@@ -1,5 +1,8 @@
+import { Art } from "@/app/types/art";
 import { Box } from "./styles";
-
-export default function ArtCard() {
-  return <Box></Box>;
+interface ArtCardProps {
+  art: Art;
+}
+export function ArtCard({ art }: ArtCardProps) {
+  return <Box>{art.title}</Box>;
 }
