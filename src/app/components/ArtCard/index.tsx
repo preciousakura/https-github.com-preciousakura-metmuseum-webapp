@@ -47,7 +47,7 @@ export function ArtCard({ art }: ArtCardProps) {
           </div>
         </Tooltip>
       )}
-      <Tooltip title="Marcar como favorito">
+      <Tooltip title={fav ? "Remover dos favoritos" : "Marcar como favorito"}>
         <button
           ref={favoriteRef}
           className="favorite"
