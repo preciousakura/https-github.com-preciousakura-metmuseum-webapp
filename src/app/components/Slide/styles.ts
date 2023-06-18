@@ -1,4 +1,3 @@
-'use client'
 import styled from "styled-components";
 
 export const Box = styled.div`
@@ -19,8 +18,7 @@ export const Box = styled.div`
   }
 `;
 
-export const ImageContent = styled.div<{ url: string }>`
-  background: url(${(props) => props.url}) center bottom;
+export const ImageContent = styled.div`
   background-color: black;
   background-size: cover;
   height: 100vh;
@@ -29,6 +27,16 @@ export const ImageContent = styled.div<{ url: string }>`
 
   width: 100%;
   height: 100vh;
+
+  transition: opacity 0.5s linear;
+
+  &.active {
+    opacity: 1;
+  }
+
+  &.inactive {
+    opacity: 0;
+  }
 `;
 
 export const CircleController = styled.button<{ iscurrent: number }>`

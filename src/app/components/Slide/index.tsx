@@ -7,6 +7,7 @@ import {
   ImageData,
 } from "./styles";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type Slide = {
   url: string;
@@ -36,7 +37,16 @@ export function Slide() {
           {slide[currentIndex].year}
         </h6>
       </ImageData>
-      <ImageContent url={slide[currentIndex].url.src} />
+      {slide.map((s, i) => {
+        return (
+          <ImageContent
+            key={i}
+            className={i === currentIndex ? "active" : "inactive"}
+          >
+            <Image loading="eager" src={s.url} alt={s.title} fill />
+          </ImageContent>
+        );
+      })}
 
       <div className="black-veil" />
       <CircleControllerGroup>

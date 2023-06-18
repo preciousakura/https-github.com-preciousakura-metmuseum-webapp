@@ -1,3 +1,4 @@
+'use client'
 import "./styles/global.css";
 import { App, CustomizedThemeProvider } from "./lib";
 
