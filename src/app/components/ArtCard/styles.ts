@@ -64,8 +64,23 @@ export const Box = styled.div`
     cursor: pointer;
     border: none;
     background: none;
-    svg {
-      color: #e11d48;
+
+    &.active {
+      svg {
+        color: #e11d48;
+
+        &:hover {
+          color: ${(props) => props.theme.colors.trueGray[400]};
+        }
+      }
+    }
+    &.inactive {
+      svg {
+        color: ${(props) => props.theme.colors.trueGray[400]};
+        &:hover {
+          color: #e11d48;
+        }
+      }
     }
   }
 

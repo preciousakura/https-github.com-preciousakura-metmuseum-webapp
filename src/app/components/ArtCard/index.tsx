@@ -3,13 +3,13 @@ import { Box, ImageStyle } from "./styles";
 import { BiWorld } from "react-icons/bi";
 import { MdOutlineHideImage } from "react-icons/md";
 import { Tooltip } from "antd";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { useRef, useState, useEffect } from "react";
-import { useHover } from "usehooks-ts";
+import { AiFillHeart } from "react-icons/ai";
+import { useState, useEffect } from "react";
 import { useFavorites } from "@/app/context/useFavorites";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { RiStarFill } from "react-icons/ri";
+import { useTheme } from "@/app/context/useTheme";
 
 interface ArtCardProps {
   art: Art;
@@ -17,9 +17,8 @@ interface ArtCardProps {
 
 export function ArtCard({ art }: ArtCardProps) {
   const [fav, setFav] = useState(false);
-  const favoriteRef = useRef<HTMLButtonElement>(null);
-  const isHover = useHover(favoriteRef);
   const { isFavorite, setFavorite } = useFavorites();
+  const { theme } = useTheme();
 
   const router = usePathname();
   const path = router.replace("/", "");
@@ -58,7 +57,7 @@ export function ArtCard({ art }: ArtCardProps) {
         </Tooltip>
       )}
 
-      {art.isHighlight  && (
+      {art.isHighlight && (
         <Tooltip title="Item popular e importante na coleção">
           <div className="is-highlight">
             <RiStarFill size={20} color="white" />
@@ -67,21 +66,10 @@ export function ArtCard({ art }: ArtCardProps) {
       )}
       <Tooltip title={fav ? "Remover dos favoritos" : "Marcar como favorito"}>
         <button
-          ref={favoriteRef}
-          className="favorite"
+          className={`favorite ${fav ? "active" : "inactive"}`}
           onClick={onChangeFavorite}
         >
-          {fav ? (
-            isHover ? (
-              <AiOutlineHeart size={23} />
-            ) : (
-              <AiFillHeart size={23} />
-            )
-          ) : isHover ? (
-            <AiFillHeart size={23} />
-          ) : (
-            <AiOutlineHeart size={23} />
-          )}
+          <AiFillHeart size={23} />
         </button>
       </Tooltip>
     </Box>

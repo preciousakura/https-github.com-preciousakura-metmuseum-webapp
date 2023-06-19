@@ -10,6 +10,8 @@ import { RiUserFill } from "react-icons/ri";
 import Link from "next/link";
 import { LoadingOutlined } from "@ant-design/icons";
 import { RiStarFill } from "react-icons/ri";
+import { AiFillHeart } from "react-icons/ai";
+import { useFavorites } from "@/app/context/useFavorites";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -32,6 +34,19 @@ export function ArtPost({ id }: ArtPostProps) {
       .catch((e) => setError(e))
       .finally(() => setLoading(false));
   }, [id]);
+
+  const [fav, setFav] = useState(false);
+  const { isFavorite, setFavorite } = useFavorites();
+
+  const onChangeFavorite = () => {
+    setFav(!fav);
+    if (data?.objectID) setFavorite(data.objectID);
+  };
+
+  useEffect(() => {
+    if (data?.objectID) setFav(isFavorite(data.objectID));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   return (
     <Box>
@@ -65,6 +80,17 @@ export function ArtPost({ id }: ArtPostProps) {
                 <MdOutlineHideImage size={80} />
               </div>
             )}
+
+            <Tooltip
+              title={fav ? "Remover dos favoritos" : "Marcar como favorito"}
+            >
+              <button
+                className={`favorite ${fav ? "active" : "inactive"}`}
+                onClick={onChangeFavorite}
+              >
+                <AiFillHeart size={27} />
+              </button>
+            </Tooltip>
           </div>
 
           <div className="card-info">

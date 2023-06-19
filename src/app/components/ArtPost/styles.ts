@@ -14,6 +14,34 @@ export const Box = styled.div`
   min-height: 500px;
   justify-content: center;
 
+  .favorite {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    cursor: pointer;
+    border: none;
+    background: none;
+
+    &.active {
+      svg {
+        color: #e11d48;
+
+        &:hover {
+          color: ${(props) => props.theme.colors.trueGray[400]};
+        }
+      }
+    }
+    &.inactive {
+      svg {
+        color: ${(props) => props.theme.colors.trueGray[400]};
+        &:hover {
+          color: #e11d48;
+        }
+      }
+    }
+  }
+
   a {
     display: inherit;
     max-width: max-content;
@@ -62,6 +90,7 @@ export const Box = styled.div`
 
   .image {
     min-width: 500px;
+    position: relative;
     .no-image {
       width: 500px;
       height: 500px;
