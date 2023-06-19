@@ -5,9 +5,9 @@ import { useExplorePagination } from "../hooks/useExplorePagination";
 import { ArtCard } from "../components";
 import { useExploreData } from "../hooks/useExploreData";
 import { useEffect, useState } from "react";
-import { useTheme } from "../lib";
 
 import { LoadingOutlined } from "@ant-design/icons";
+import { useTheme } from "../context/useTheme";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 

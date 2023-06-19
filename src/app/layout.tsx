@@ -1,6 +1,7 @@
-"use client";
+import { App } from "./app";
+import { FavoritesProvider } from "./context/useFavorites";
+import { CustomizedThemeProvider } from "./context/useTheme";
 import "./styles/global.css";
-import { App, CustomizedThemeProvider, FavoritesProvider } from "./lib";
 
 export const metadata = {
   title: "The Metropolitan Museum of Art",

@@ -1,12 +1,11 @@
-import { useTheme } from "@/app/lib";
 import { Box, LinkText } from "./styles";
 import { MdModeNight, MdSunny } from "react-icons/md";
 import { usePathname } from "next/navigation";
+import { useTheme } from "@/app/context/useTheme";
 
 export function Header() {
-  const { theme } = useTheme();
+  const { theme, changeToDarkMode, changeToLightMode } = useTheme();
   const router = usePathname();
-  const { changeToDarkMode, changeToLightMode } = useTheme();
   const isHome = router === "/" ? 1 : 0;
   return (
     <Box ishome={isHome}>

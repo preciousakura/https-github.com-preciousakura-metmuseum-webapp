@@ -4,10 +4,10 @@ import { ConfigProvider, Pagination, Spin } from "antd";
 import { ArtCard } from "../components";
 import { useExploreData } from "../hooks/useExploreData";
 import { useEffect, useState } from "react";
-import { useTheme } from "../lib";
 
 import { LoadingOutlined } from "@ant-design/icons";
 import { useFavorites } from "../context/useFavorites";
+import { useTheme } from "../context/useTheme";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
