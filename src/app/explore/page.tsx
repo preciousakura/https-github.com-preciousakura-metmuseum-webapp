@@ -30,42 +30,50 @@ export default function Explore() {
   return (
     <Box>
       {pageLoading ? (
-        <Spin indicator={antIcon} />
+        <div className="spinner">
+          <Spin indicator={antIcon} />
+        </div>
       ) : (
         <>
-          {loading ? (
-            <div className="cards-area-spinner">
-              <Spin indicator={antIcon} />
-            </div>
-          ) : (
-            <div className="cards-area-cards">
-              {objectsData?.total && objectsData.total > 0 ? (
-                <div className="cards">
-                  {artData.map((d) => {
-                    return <ArtCard key={d.objectID} art={d} />;
-                  })}
-                </div>
-              ) : (
-                <p>Nenhum dado encontrado</p>
-              )}
-            </div>
-          )}
+          <div className="search-input">
+            <input placeholder="Busque " />
+          </div>
 
-          {objectsData?.total && objectsData.total > 0 && (
-            <ConfigProvider
-              theme={{
-                token: {
-                  colorPrimary: theme.colors.primary[500],
-                },
-              }}
-            >
-              <Pagination
-                total={objectsData?.total}
-                onChange={onChange}
-                defaultPageSize={10}
-              />
-            </ConfigProvider>
-          )}
+          <div className="content">
+            {loading ? (
+              <div className="cards-area-spinner">
+                <Spin indicator={antIcon} />
+              </div>
+            ) : (
+              <div className="cards-area-cards">
+                {objectsData?.total && objectsData.total > 0 ? (
+                  <div className="cards">
+                    {artData.map((d) => {
+                      return <ArtCard key={d.objectID} art={d} />;
+                    })}
+                  </div>
+                ) : (
+                  <p>Nenhum dado encontrado</p>
+                )}
+              </div>
+            )}
+
+            {objectsData?.total && objectsData.total > 0 && (
+              <ConfigProvider
+                theme={{
+                  token: {
+                    colorPrimary: theme.colors.primary[500],
+                  },
+                }}
+              >
+                <Pagination
+                  total={objectsData?.total}
+                  onChange={onChange}
+                  defaultPageSize={10}
+                />
+              </ConfigProvider>
+            )}
+          </div>
         </>
       )}
     </Box>
