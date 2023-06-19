@@ -55,7 +55,7 @@ export function ArtPost({ id }: ArtPostProps) {
           <Spin indicator={antIcon} />
         </div>
       ) : (
-        <>
+        <div className="content">
           {data?.isPublicDomain && (
             <Tooltip title="Item de domínio público">
               <div className="public-domain">
@@ -188,7 +188,7 @@ export function ArtPost({ id }: ArtPostProps) {
               </Link>
             )}
           </div>
-        </>
+        </div>
       )}
     </Box>
   );

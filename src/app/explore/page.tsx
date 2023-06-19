@@ -1,8 +1,8 @@
 "use client";
 import { Box } from "./styles";
-import { ConfigProvider, Pagination, Spin } from "antd";
+import { ConfigProvider, Pagination, Spin, theme as antdTheme } from "antd";
 import { useExplorePagination } from "../hooks/useExplorePagination";
-import { ArtCard } from "../components";
+import { ArtCard, SearchInput } from "../components";
 import { useExploreData } from "../hooks/useExploreData";
 import { useEffect, useState } from "react";
 
@@ -35,10 +35,15 @@ export default function Explore() {
         </div>
       ) : (
         <>
-          <div className="search-input">
-            <input placeholder="Busque " />
+          <div className="header">
+            <h1>Explore</h1>
+            <p>
+              Travel around the world and across 5,000 years of history through
+              490,000+ works of art.
+            </p>
           </div>
 
+          <SearchInput />
           <div className="content">
             {loading ? (
               <div className="cards-area-spinner">
@@ -61,6 +66,8 @@ export default function Explore() {
             {objectsData?.total && objectsData.total > 0 && (
               <ConfigProvider
                 theme={{
+                  algorithm: theme.isDark ? antdTheme.darkAlgorithm : undefined,
+
                   token: {
                     colorPrimary: theme.colors.primary[500],
                   },

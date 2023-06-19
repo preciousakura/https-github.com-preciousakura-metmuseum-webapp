@@ -4,3 +4,4 @@ export { Slide } from "./Slide";
 export { TitleHome } from "./TitleHome";
 export { ArtCard } from "./ArtCard";
 export { ArtPost } from "./ArtPost";
+export { SearchInput } from "./SearchInput";

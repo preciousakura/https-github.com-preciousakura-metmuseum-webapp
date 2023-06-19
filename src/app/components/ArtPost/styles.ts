@@ -1,18 +1,27 @@
 import { styled } from "styled-components";
 
 export const Box = styled.div`
-  position: relative;
-  max-width: 1200px;
-  min-width: 500px;
-  display: flex;
-  margin: 100px auto;
-  align-items: flex-start;
-  gap: 20px;
-  background: ${(props) => (props.theme.isDark ? "#121212" : "white")};
-  width: max-content;
-  padding: 20px;
-  min-height: 500px;
-  justify-content: center;
+  .spinner,
+  .content {
+    position: relative;
+    max-width: 1200px;
+    min-width: 500px;
+    display: flex;
+    margin: 100px auto;
+    gap: 20px;
+    background: ${(props) => (props.theme.isDark ? "#121212" : "white")};
+    width: max-content;
+    padding: 20px;
+    min-height: 500px;
+    justify-content: center;
+  }
+  .spinner {
+    align-items: center;
+  }
+
+  .content {
+    align-items: flex-start;
+  }
 
   .favorite {
     position: absolute;

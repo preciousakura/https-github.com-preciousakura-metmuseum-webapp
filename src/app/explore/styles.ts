@@ -7,6 +7,9 @@ export const Box = styled.div`
   align-items: center;
   padding: 70px;
   min-height: 900px;
+  max-width: 1640px;
+  margin: 0 auto;
+
   .spinner {
     svg {
       color: ${(props) =>
@@ -14,26 +17,18 @@ export const Box = styled.div`
     }
   }
 
-  .search-input {
-    margin-bottom: 50px;
-    input {
-      background: ${(props) =>
-        props.theme.isDark ? props.theme.colors.trueGray[800] : "white"};
-      border: 1px solid
-        ${(props) =>
-          props.theme.isDark
-            ? props.theme.colors.trueGray[600]
-            : props.theme.colors.trueGray[200]};
-      font-size: 1.4rem;
-      padding: 10px 18px;
-      &:focus {
-        outline: none;
-        border: 1px solid
-          ${(props) =>
-            props.theme.isDark
-              ? props.theme.colors.primary[500]
-              : props.theme.colors.trueGray[800]};
-      }
+  .header {
+    margin-bottom: 20px;
+    width: 100%;
+    h1,
+    p {
+      color: ${(props) =>
+        props.theme.isDark ? props.theme.colors.primary[500] : "black"};
+      text-align: left;
+    }
+
+    h1 {
+      font-size: 50px;
     }
   }
   .content {
@@ -71,42 +66,8 @@ export const Box = styled.div`
       }
     }
 
-    ul.ant-pagination.css-dev-only-do-not-override-noj3jr {
-      margin: 0 auto;
-    }
-    li.ant-pagination-options {
+    .ant-pagination-options-size-changer {
       display: none;
-    }
-    li.ant-pagination-item {
-      a {
-        color: ${(props) =>
-          props.theme.isDark ? props.theme.colors.primary[500] : "black"};
-      }
-      &:hover {
-        background: ${(props) =>
-          props.theme.isDark ? "#121212" : undefined} !important;
-      }
-    }
-
-    button.ant-pagination-item-link {
-      &:hover {
-        background: ${(props) =>
-          props.theme.isDark ? "#121212" : undefined} !important;
-      }
-    }
-    .anticon svg,
-    span.ant-pagination-item-ellipsis {
-      color: ${(props) =>
-        props.theme.isDark
-          ? props.theme.colors.primary[500]
-          : "black"} !important;
-    }
-
-    li.ant-pagination-item.ant-pagination-item-active {
-      background: none;
-      a {
-        color: ${(props) => props.theme.colors.primary[500]};
-      }
     }
   }
 `;

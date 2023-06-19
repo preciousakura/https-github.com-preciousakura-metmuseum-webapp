@@ -1,6 +1,6 @@
 "use client";
 import { Box } from "./styles";
-import { ConfigProvider, Pagination, Spin } from "antd";
+import { ConfigProvider, Pagination, Spin, theme as antdTheme } from "antd";
 import { ArtCard } from "../components";
 import { useExploreData } from "../hooks/useExploreData";
 import { useEffect, useState } from "react";
@@ -33,21 +33,27 @@ export default function Favorites() {
           <Spin indicator={antIcon} />
         </div>
       ) : (
-        <div className="cards-area-cards">
-          {favorites.length > 0 ? (
-            <div className="cards">
-              {artData.map((d) => {
-                return <ArtCard key={d.objectID} art={d} />;
-              })}
-            </div>
-          ) : (
-            <p>Nenhum dado encontrado</p>
-          )}{" "}
-        </div>
+        <>
+          <div className="header">
+            <h1>Favoritos</h1>
+          </div>
+          <div className="cards-area-cards">
+            {favorites.length > 0 ? (
+              <div className="cards">
+                {artData.map((d) => {
+                  return <ArtCard key={d.objectID} art={d} />;
+                })}
+              </div>
+            ) : (
+              <p>Nenhum dado encontrado</p>
+            )}
+          </div>
+        </>
       )}
       {favorites.length > 10 && (
         <ConfigProvider
           theme={{
+            algorithm: theme.isDark ? antdTheme.darkAlgorithm : undefined,
             token: {
               colorPrimary: theme.colors.primary[500],
             },
