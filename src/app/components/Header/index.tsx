@@ -18,7 +18,7 @@ export function Header() {
         <LinkText
           href="/explore"
           ishome={isHome}
-          iscurrent={router === "/explore" ? 1 : 0}
+          iscurrent={router.includes("explore") ? 1 : 0}
         >
           EXPLORAR
         </LinkText>
@@ -27,7 +27,7 @@ export function Header() {
         <LinkText
           href="/favorites"
           ishome={isHome}
-          iscurrent={router === "/favorites" ? 1 : 0}
+          iscurrent={router.includes("favorites") ? 1 : 0}
         >
           Meus Favoritos
         </LinkText>

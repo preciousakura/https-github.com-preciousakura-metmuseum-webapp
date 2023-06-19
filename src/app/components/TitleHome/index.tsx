@@ -25,7 +25,7 @@ export function TitleHome() {
       </div>
 
       <a href="https://www.metmuseum.org/" target="_blank">
-        Main informações
+        Mais informações
       </a>
     </Box>
   );

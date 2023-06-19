@@ -9,12 +9,27 @@ export const Box = styled.div`
   background: ${(props) => (props.theme.isDark ? "#121212" : "white")};
   .art-info {
     padding-top: 10px;
+    display: flex;
+    flex-direction: column;
     h2 {
       color: ${(props) =>
         props.theme.isDark ? props.theme.colors.primary[500] : "black"};
+      font-weight: 600;
     }
-    .title {
+    a {
+      font-weight: 800;
+      margin-bottom: 7px;
+
+      color: ${(props) =>
+        props.theme.isDark ? props.theme.colors.primary[500] : "black"};
+      text-decoration: none;
       font-size: 20px;
+
+      transition: all 0.2s ease;
+
+      &:hover {
+        filter: contrast(0.2);
+      }
     }
 
     .artist {
@@ -53,11 +68,27 @@ export const Box = styled.div`
       color: #e11d48;
     }
   }
+
+  .is-highlight {
+    left: 60px;
+    background: #f97316;
+    &:after {
+      border-color: #f97316;
+    }
+  }
+
+  .public-domain {
+    left: 25px;
+    background: #0284c7;
+    &:after {
+      border-color: #0284c7;
+    }
+  }
+
+  .is-highlight,
   .public-domain {
     position: absolute;
     top: 0;
-    left: 25px;
-    background: #0284c7;
     width: 30px;
     height: 40px;
 
@@ -73,7 +104,6 @@ export const Box = styled.div`
       position: absolute;
       display: block;
       border-width: 0 15px 15px 15px;
-      border-color: #0284c7;
       border-bottom-color: transparent;
       border-style: solid;
       box-sizing: border-box;

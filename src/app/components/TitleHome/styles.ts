@@ -10,6 +10,11 @@ export const Box = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  
+  h2 {
+    font-family: 'Abril Fatface', cursive;
+
+  }
 
   h2,
   p {
@@ -17,7 +22,7 @@ export const Box = styled.div`
   }
 
   h2 {
-    font-size: 3.5rem;
+    font-size: 4rem;
   }
 
   p {

@@ -7,6 +7,9 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useRef, useState, useEffect } from "react";
 import { useHover } from "usehooks-ts";
 import { useFavorites } from "@/app/context/useFavorites";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { RiStarFill } from "react-icons/ri";
 
 interface ArtCardProps {
   art: Art;
@@ -17,6 +20,9 @@ export function ArtCard({ art }: ArtCardProps) {
   const favoriteRef = useRef<HTMLButtonElement>(null);
   const isHover = useHover(favoriteRef);
   const { isFavorite, setFavorite } = useFavorites();
+
+  const router = usePathname();
+  const path = router.replace("/", "");
 
   useEffect(() => {
     setFav(isFavorite(art.objectID));
@@ -30,15 +36,17 @@ export function ArtCard({ art }: ArtCardProps) {
 
   return (
     <Box>
-      {art.primaryImageSmall === "" ? (
-        <div className="no-image">
-          <MdOutlineHideImage size={80} />
-        </div>
-      ) : (
-        <ImageStyle src={art.primaryImageSmall} />
-      )}
+      <Link href={`/${path}/${art.objectID}`}>
+        {art.primaryImageSmall === "" ? (
+          <div className="no-image">
+            <MdOutlineHideImage size={80} />
+          </div>
+        ) : (
+          <ImageStyle src={art.primaryImageSmall} />
+        )}
+      </Link>
       <div className="art-info">
-        <h2 className="title">{art.title}</h2>
+        <Link href={`/${path}/${art.objectID}`}>{art.title}</Link>
         <h2 className="artist">{art.artistDisplayName}</h2>
         <h2 className="artist">{art.artistDisplayBio}</h2>
       </div>
@@ -46,6 +54,14 @@ export function ArtCard({ art }: ArtCardProps) {
         <Tooltip title="Item de domínio público">
           <div className="public-domain">
             <BiWorld size={20} color="white" />
+          </div>
+        </Tooltip>
+      )}
+
+      {art.isHighlight  && (
+        <Tooltip title="Item popular e importante na coleção">
+          <div className="is-highlight">
+            <RiStarFill size={20} color="white" />
           </div>
         </Tooltip>
       )}
