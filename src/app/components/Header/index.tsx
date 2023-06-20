@@ -8,7 +8,7 @@ export function Header() {
   const router = usePathname();
   const isHome = router === "/" ? 1 : 0;
   return (
-    <Box ishome={isHome}>
+    <Box className="nav-web" ishome={isHome}>
       <li>
         <LinkText href="/" ishome={isHome} iscurrent={isHome}>
           Página Inicial

@@ -30,7 +30,7 @@ export function MobileHeader() {
         setIsOpen(false);
       }}
     >
-      <Box ishome={isHome} isopen={isOpen ? 1 : 0}>
+      <Box className="nav-mobile" ishome={isHome} isopen={isOpen ? 1 : 0}>
         <button onClick={() => setIsOpen(!isOpen)}>
           <BiMenu size={22} />
         </button>

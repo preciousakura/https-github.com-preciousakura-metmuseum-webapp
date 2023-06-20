@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Box = styled.div<{ ishome: number; isopen: number }>`
+export const Box = styled.nav<{ ishome: number; isopen: number }>`
   position: ${(props) => (props.ishome ? "absolute" : "static")};
   z-index: 999;
   box-sizing: border-box;

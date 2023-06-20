@@ -11,12 +11,8 @@ export function App({ children }: { children: React.ReactNode }) {
     <ThemeProvider theme={theme}>
       <html lang="en">
         <BodyMain>
-          <div className="nav-mobile">
-            <MobileHeader />
-          </div>
-          <div className="nav-web">
-            <Header />
-          </div>
+          <MobileHeader />
+          <Header />
           {children}
         </BodyMain>
       </html>
