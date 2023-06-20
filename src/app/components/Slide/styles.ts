@@ -86,4 +86,8 @@ export const ImageData = styled.div`
     font-weight: 400;
     font-size: 14px;
   }
+
+  @media (max-width: 440px) {
+    display: none;
+  }
 `;

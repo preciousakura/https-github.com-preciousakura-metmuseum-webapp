@@ -15,7 +15,7 @@ export const Box = styled.div`
   }
 
   @media (max-width: 950px) {
-    padding: 50px;
+    padding: 30px;
     box-sizing: border-box;
     transform: translate(0, 50%);
     width: 100%;
