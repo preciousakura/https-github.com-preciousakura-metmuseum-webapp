@@ -35,29 +35,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     setPage(pageNumber);
   };
 
-  useEffect(() => {
-    search
-      .getResults({})
-      .then((results) => {
-        setData(results);
-        setPage(1);
-      })
-      .catch((err) => setError(err));
-  }, []);
-
-  const onSearch = () => {
-    if (searchValue) {
-      search
-        .getResults({
-          q: searchValue,
-        })
-        .then((results) => {
-          setData(results);
-          setPage(1);
-        })
-        .catch((err) => setError(err));
-    }
-  };
+  const onSearch = () => {};
 
   const onChangeSearchValue = (value?: string) => {
     setSearchValue(value);

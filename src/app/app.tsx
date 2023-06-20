@@ -1,17 +1,22 @@
 "use client";
 import { ThemeProvider } from "styled-components";
-import { Header } from "./components";
+import { Header, MobileHeader } from "./components";
 import { BodyMain } from "./styles/global";
 import { useTheme } from "./context/useTheme";
 
 export function App({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
-  
+
   return (
     <ThemeProvider theme={theme}>
       <html lang="en">
         <BodyMain>
-          <Header />
+          <div className="nav-mobile">
+            <MobileHeader />
+          </div>
+          <div className="nav-web">
+            <Header />
+          </div>
           {children}
         </BodyMain>
       </html>

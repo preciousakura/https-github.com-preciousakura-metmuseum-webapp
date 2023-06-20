@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 export const Box = styled.div`
   position: absolute;
-  z-index: 9999;
+  z-index: 10;
   bottom: 50%;
   transform: translate(20%, 50%);
   max-width: 780px;
