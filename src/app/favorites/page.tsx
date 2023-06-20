@@ -3,7 +3,7 @@ import { Box } from "./styles";
 import { ConfigProvider, Pagination, Spin, theme as antdTheme } from "antd";
 import { ArtCard } from "../components";
 import { useExploreData } from "../hooks/useExploreData";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { LoadingOutlined } from "@ant-design/icons";
 import { useFavorites } from "../context/useFavorites";
@@ -28,6 +28,10 @@ export default function Favorites() {
     if (favorites.length <= 10) setPage(1);
   }, [page, favorites, artData, loading]);
 
+  const splitObjectData = useMemo(() => {
+    return favorites.slice((page - 1) * 10, (page - 1) * 10 + 10);
+  }, [favorites, page]);
+
   return (
     <Box>
       <div className="header">
@@ -35,14 +39,10 @@ export default function Favorites() {
       </div>
 
       <div className="content">
-        {loading ? (
-          <div className="content-feedback">
-            <Spin indicator={antIcon} />
-          </div>
-        ) : favorites.length > 0 ? (
+        {favorites.length > 0 ? (
           <div className="content-cards-area">
-            {artData.map((d) => {
-              return <ArtCard key={d.objectID} art={d} />;
+            {splitObjectData.map((d) => {
+              return <ArtCard key={d} artId={d} />;
             })}
           </div>
         ) : (
@@ -50,6 +50,7 @@ export default function Favorites() {
             <p>Nenhum dado encontrado</p>
           </div>
         )}
+
         {favorites.length > 10 && (
           <ConfigProvider
             theme={{

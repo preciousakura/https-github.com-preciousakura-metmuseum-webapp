@@ -3,11 +3,10 @@ import { Box } from "./styles";
 import { ConfigProvider, Pagination, Spin, theme as antdTheme } from "antd";
 import { useExplorePagination } from "../hooks/useExplorePagination";
 import { ArtCard, SearchInput } from "../components";
-import { useExploreData } from "../hooks/useExploreData";
 
 import { LoadingOutlined } from "@ant-design/icons";
 import { useTheme } from "../context/useTheme";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearch } from "../context/useSearch";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -19,11 +18,11 @@ export default function Explore() {
   const { data: searchData, loading: searchLoading, isSearch } = useSearch();
   const { objectsData, loading: objectLoading } = useExplorePagination();
 
-  const object = isSearch
-    ? { pageData: searchData, pageLoading: searchLoading }
-    : { pageData: objectsData, pageLoading: objectLoading };
-
-  const { data, loading } = useExploreData(page, object.pageData?.objectIDs);
+  const object = useMemo(() => {
+    return isSearch
+      ? { pageData: searchData, pageLoading: searchLoading }
+      : { pageData: objectsData, pageLoading: objectLoading };
+  }, [isSearch, objectLoading, objectsData, searchData, searchLoading]);
 
   const onChangePage = (pageNumber: number) => {
     setPage(pageNumber);
@@ -32,6 +31,12 @@ export default function Explore() {
   useEffect(() => {
     setPage(1);
   }, [isSearch]);
+
+  const splitObjectData = useMemo(() => {
+    return object.pageData && object.pageData.objectIDs
+      ? object.pageData.objectIDs.slice((page - 1) * 10, (page - 1) * 10 + 10)
+      : [];
+  }, [page, object]);
 
   return (
     <Box>
@@ -52,14 +57,10 @@ export default function Explore() {
         </div>
       ) : (
         <div className="content">
-          {loading ? (
-            <div className="content-feedback">
-              <Spin indicator={antIcon} />
-            </div>
-          ) : object.pageData?.total && object.pageData?.total > 0 ? (
+          {object.pageData && object.pageData.total > 0 ? (
             <div className="content-cards-area">
-              {data.map((d) => {
-                return <ArtCard key={d.objectID} art={d} />;
+              {splitObjectData.map((d) => {
+                return <ArtCard key={d} artId={d} />;
               })}
             </div>
           ) : (

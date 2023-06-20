@@ -9,6 +9,31 @@ export const Box = styled.div`
   box-sizing: border-box;
   background: ${(props) => (props.theme.isDark ? "#121212" : "white")};
 
+  .spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    svg {
+      color: ${(props) =>
+        props.theme.isDark ? props.theme.colors.primary[500] : "black"};
+    }
+  }
+
+  .content-feedback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    p {
+      color: ${(props) =>
+        props.theme.isDark
+          ? props.theme.colors.trueGray[500]
+          : props.theme.colors.trueGray[300]};
+    }
+  }
+
   .art-info {
     padding-top: 10px;
     display: flex;

@@ -21,7 +21,8 @@ export interface ISearch {
   onChangeSearchValue: (value?: string) => void;
   onChangeFilterBy: (value: string) => void;
   onChangeFilterCheckBox: (value: CheckboxValueType[]) => void;
-  clearSearch: (value: string) => void;
+  clearSearch: () => void;
+  defaultSearch: () => void;
 }
 
 const SearchContext = createContext<ISearch>({} as ISearch);
@@ -61,8 +62,12 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     }
   }, [params, isSearch]);
 
-  const clearSearch = (value: string) => {
-    setSearchValue(value);
+  const defaultSearch = () => {
+    setIsSearch(false);
+  };
+
+  const clearSearch = () => {
+    setSearchValue("");
     if (filterCheckBox.length > 0) setIsSearch(true);
     else setIsSearch(false);
   };
@@ -90,6 +95,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
       onChangeFilterBy,
       onChangeFilterCheckBox,
       clearSearch,
+      defaultSearch,
       data,
       loading,
       error,

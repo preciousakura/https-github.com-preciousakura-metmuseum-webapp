@@ -14,6 +14,7 @@ export function SearchInput() {
     onChangeFilterCheckBox,
     onChangeSearchValue,
     clearSearch,
+    defaultSearch,
   } = useSearch();
 
   const options = [
@@ -24,6 +25,7 @@ export function SearchInput() {
   useEffect(() => {
     onChangeFilterBy("");
     onChangeFilterCheckBox([]);
+    defaultSearch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -67,7 +69,7 @@ export function SearchInput() {
         <button
           onClick={() => {
             setValue("");
-            clearSearch("");
+            clearSearch();
           }}
         >
           LIMPAR

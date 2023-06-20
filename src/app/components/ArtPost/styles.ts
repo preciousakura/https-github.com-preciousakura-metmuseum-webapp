@@ -142,7 +142,7 @@ export const ContentImage = styled.div<{ width: number; height: number }>`
   @media (max-width: 960px) {
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: ${(props) => (props.height === 0 ? "500px" : "100%")};
     min-width: auto;
   }
 
