@@ -9,7 +9,6 @@ import { useFavorites } from "@/app/context/useFavorites";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { RiStarFill } from "react-icons/ri";
-import { useTheme } from "@/app/context/useTheme";
 
 interface ArtCardProps {
   art: Art;
@@ -18,7 +17,6 @@ interface ArtCardProps {
 export function ArtCard({ art }: ArtCardProps) {
   const [fav, setFav] = useState(false);
   const { isFavorite, setFavorite } = useFavorites();
-  const { theme } = useTheme();
 
   const router = usePathname();
   const path = router.replace("/", "");

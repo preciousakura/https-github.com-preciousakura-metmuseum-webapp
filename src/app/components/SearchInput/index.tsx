@@ -4,28 +4,46 @@ import { Box } from "./styles";
 import { ImSearch } from "react-icons/im";
 import { Checkbox, ConfigProvider, Select, theme as antdTheme } from "antd";
 import { useTheme } from "@/app/context/useTheme";
+import { useSearch } from "@/app/context/useSearch";
+import { useEffect } from "react";
 
 export function SearchInput() {
   const { theme } = useTheme();
+  const {
+    onChangeFilterBy,
+    onChangeFilterCheckBox,
+    onChangeSearchValue,
+    onSearch,
+  } = useSearch();
 
   const options = [
-    { label: "Hightlights", value: "Hightlights" },
-    { label: "Obras com imagens", value: "Pear" },
-    { label: "Obras de domínio público", value: "Orange" },
+    { label: "Hightlights", value: "isHighlight" },
+    { label: "Obras com imagens", value: "hasImage" },
   ];
+
+  useEffect(() => {
+    onChangeFilterBy("");
+    onChangeFilterCheckBox([]);
+    onChangeSearchValue("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Box>
-      <div className="top">
-        <div className="input">
+      <div className="content-search">
+        <div className="input-search">
           <div className="icon search">
             <ImSearch />
           </div>
-          <input placeholder="Busque " />
+          <input
+            placeholder="Buscar"
+            onChange={(e) => onChangeSearchValue(e.target.value)}
+          />
           <div className="icon clear">
             <AiOutlineClose />
           </div>
         </div>
-        <div className="filter select" defaultValue="Todos os campos">
+        <div className="select-filter-search" defaultValue="Todos os campos">
           <ConfigProvider
             theme={{
               algorithm: theme.isDark ? antdTheme.darkAlgorithm : undefined,
@@ -35,6 +53,7 @@ export function SearchInput() {
             }}
           >
             <Select
+              onChange={onChangeFilterBy}
               defaultValue="all"
               options={[
                 { value: "all", label: "Todos os campos" },
@@ -45,12 +64,10 @@ export function SearchInput() {
             />
           </ConfigProvider>
         </div>
-        <div className="button">
-          <button>PESQUISAR</button>
-        </div>
+        <button>PESQUISAR</button>
       </div>
 
-      <div className="bottom">
+      <div className="content-filter">
         <h3>Mostre apenas: </h3>
         <ConfigProvider
           theme={{
@@ -60,7 +77,7 @@ export function SearchInput() {
             },
           }}
         >
-          <Checkbox.Group options={options} />
+          <Checkbox.Group onChange={onChangeFilterCheckBox} options={options} />
         </ConfigProvider>
       </div>
     </Box>

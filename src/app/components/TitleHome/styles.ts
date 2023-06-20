@@ -6,14 +6,19 @@ export const Box = styled.div`
   bottom: 50%;
   transform: translate(20%, 50%);
   max-width: 780px;
-  
   display: flex;
   flex-direction: column;
   gap: 20px;
-  
-  h2 {
-    font-family: 'Abril Fatface', cursive;
 
+  @media (max-width: 1500px) {
+    transform: translate(10%, 50%);
+  }
+
+  @media (max-width: 950px) {
+    padding: 50px;
+    box-sizing: border-box;
+    transform: translate(0, 50%);
+    width: 100%;
   }
 
   h2,
@@ -23,10 +28,20 @@ export const Box = styled.div`
 
   h2 {
     font-size: 4rem;
+    @media (max-width: 1500px) {
+      font-size: 2.8rem;
+    }
+
+    @media (max-width: 440px) {
+      font-size: 1.6rem;
+    }
   }
 
   p {
     font-weight: 400;
+    @media (max-width: 440px) {
+      font-size: 14px;
+    }
   }
 
   a {

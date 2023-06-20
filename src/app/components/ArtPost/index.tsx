@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
-import { Box, ImageStyle } from "./styles";
-import { Art } from "@/app/types/art";
-import { objects } from "@/app/services/objects";
-import { MdOutlineHideImage } from "react-icons/md";
-import { FaPaintBrush } from "react-icons/fa";
-import { Spin, Tooltip } from "antd";
-import { BiWorld } from "react-icons/bi";
-import { RiUserFill } from "react-icons/ri";
-import Link from "next/link";
 import { LoadingOutlined } from "@ant-design/icons";
-import { RiStarFill } from "react-icons/ri";
-import { AiFillHeart } from "react-icons/ai";
+import { usePost } from "@/app/hooks/usePost";
 import { useFavorites } from "@/app/context/useFavorites";
-
+import { Box } from "./styles";
+import { Spin, Tooltip } from "antd";
+import Image from "next/image";
+import { MdOutlineHideImage } from "react-icons/md";
+import { RiStarFill, RiUserFill } from "react-icons/ri";
+import { FaPaintBrush } from "react-icons/fa";
+import { BsInfoCircleFill } from "react-icons/bs";
+import { BiWorld } from "react-icons/bi";
+import { AiFillHeart } from "react-icons/ai";
+import Link from "next/link";
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 interface ArtPostProps {
@@ -20,20 +19,7 @@ interface ArtPostProps {
 }
 
 export function ArtPost({ id }: ArtPostProps) {
-  const [data, setData] = useState<Art>();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    setLoading(true);
-    objects
-      .getById(id)
-      .then((d) => {
-        setData(d);
-      })
-      .catch((e) => setError(e))
-      .finally(() => setLoading(false));
-  }, [id]);
+  const { data, loading } = usePost(id);
 
   const [fav, setFav] = useState(false);
   const { isFavorite, setFavorite } = useFavorites();
@@ -48,39 +34,62 @@ export function ArtPost({ id }: ArtPostProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  const artist = [
+    {
+      label: "Nome",
+      value: `${data?.artistDisplayName} ${
+        data?.artistBeginDate &&
+        data.artistEndDate &&
+        `(${data.artistBeginDate}-${data.artistEndDate})`
+      }`,
+    },
+    { label: "Gênero", value: data?.artistGender },
+    { label: "Especialidade", value: data?.artistRole },
+    { label: "Nacionalidade", value: data?.artistNationality },
+  ];
+
+  const object = [
+    {
+      label: "Local",
+      value: `${data?.geographyType && data.geographyType + " "}${
+        data?.country && data?.country + ", "
+      }${data?.state && data?.state + ", "}${data?.city}`,
+    },
+    { label: "Dimensões", value: data?.dimensions },
+    { label: "Material", value: data?.medium },
+    { label: "Departamento", value: data?.department },
+    { label: "Tipo de objeto", value: data?.objectName },
+    { label: "Data", value: data?.objectDate },
+  ];
+
   return (
     <Box>
       {loading ? (
-        <div className="spinner">
+        <div className="content-feedback">
           <Spin indicator={antIcon} />
         </div>
-      ) : (
+      ) : data ? (
         <div className="content">
-          {data?.isPublicDomain && (
+          {data.isPublicDomain && (
             <Tooltip title="Item de domínio público">
               <div className="public-domain">
                 <BiWorld size={27} color="white" />
               </div>
             </Tooltip>
           )}
-
-          {data?.isHighlight && (
+          {data.isHighlight && (
             <Tooltip title="Item popular e importante na coleção">
               <div className="is-highlight">
                 <RiStarFill size={27} color="white" />
               </div>
             </Tooltip>
           )}
-
-          <div className="image">
-            {data && data.primaryImage !== "" ? (
-              <ImageStyle src={data.primaryImage} />
+          <div className="content-image">
+            {data.primaryImage === "" ? (
+              <MdOutlineHideImage size={80} />
             ) : (
-              <div className="no-image">
-                <MdOutlineHideImage size={80} />
-              </div>
+              <Image src={data.primaryImage} alt={data.title} fill />
             )}
-
             <Tooltip
               title={fav ? "Remover dos favoritos" : "Marcar como favorito"}
             >
@@ -92,102 +101,68 @@ export function ArtPost({ id }: ArtPostProps) {
               </button>
             </Tooltip>
           </div>
-
-          <div className="card-info">
-            <h2>{data?.title}</h2>
-
-            <div className="title-art">
-              <FaPaintBrush size={22} />
-              <h3>Sobre a obra</h3>
+          <div className="content-text">
+            <div className="content-text-header">
+              <h2>{data.title}</h2>
+              <h3>{data.creditLine}</h3>
             </div>
-
-            <h5>
-              <b>Local: </b>
-              {data?.geographyType === "" && data?.country === ""
-                ? "Sem informações"
-                : `${data?.geographyType} ${
-                    data?.country && data?.country + ", "
-                  }${data?.state && data?.state + ", "}${
-                    data?.city && data?.city
-                  }`}
-            </h5>
-
-            <h5>
-              <b>Dimensões: </b>
-              {data?.dimensions === "" ? "Sem informações" : data?.dimensions}
-            </h5>
-
-            <h5>
-              <b>Material: </b>
-              {data?.medium === "" ? "Sem informações" : data?.medium}
-            </h5>
-
-            <h5>
-              <b>Departamento: </b>
-              {data?.department === "" ? "Sem informações" : data?.department}
-            </h5>
-
-            <h5>
-              <b>Tipo de objeto: </b>
-              {data?.objectName === "" ? "Sem informações" : data?.objectName}
-            </h5>
-
-            <h5>
-              <b>Data: </b>
-              {!data?.objectDate ? "Sem informações" : data?.objectDate}
-            </h5>
-
-            {data?.objectURL && (
-              <Link target="_blank" href={data.objectURL}>
-                <div className="more-info-artist">
-                  Mais informações sobre o objeto
+            <div className="details">
+              <div className="object-details">
+                <div className="label object">
+                  <FaPaintBrush size={22} />
+                  <h3>Sobre a obra</h3>
+                  {data.objectWikidata_URL !== "" && (
+                    <Tooltip title="Mais informações sobre a obra">
+                      <Link href={data.objectWikidata_URL} target="_blank">
+                        <BsInfoCircleFill />
+                      </Link>
+                    </Tooltip>
+                  )}
                 </div>
-              </Link>
-            )}
-
-            <div className="title-art">
-              <RiUserFill size={22} />
-              <h3>Sobre o artista</h3>
+                <div className="information">
+                  {object.map((a, i) => {
+                    return (
+                      <h4 key={i}>
+                        <b>{a.label}: </b>
+                        <span>
+                          {a.value === "" ? "Sem informações" : a.value}
+                        </span>
+                      </h4>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="artist-details">
+                <div className="label artist">
+                  <RiUserFill size={22} />
+                  <h3>Sobre o artista</h3>
+                  {data.artistWikidata_URL !== "" && (
+                    <Tooltip title="Mais informações sobre o artista">
+                      <Link href={data.artistWikidata_URL} target="_blank">
+                        <BsInfoCircleFill />
+                      </Link>
+                    </Tooltip>
+                  )}
+                </div>
+                <div className="information">
+                  {artist.map((a, i) => {
+                    return (
+                      <h4 key={i}>
+                        <b>{a.label}: </b>
+                        <span>
+                          {a.value === "" ? "Sem informações" : a.value}
+                        </span>
+                      </h4>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-
-            <h5>
-              <b>Nome: </b>
-              {data?.artistDisplayName === ""
-                ? "Sem informações"
-                : data?.artistDisplayName}
-
-              {data?.artistBeginDate !== "" &&
-                data?.artistEndDate !== "" &&
-                ` (${data?.artistBeginDate}-${data?.artistEndDate})`}
-            </h5>
-
-            <h5>
-              <b>Gênero: </b>
-              {data?.artistGender === ""
-                ? "Sem informações"
-                : data?.artistGender}
-            </h5>
-
-            <h5>
-              <b>Especialidade: </b>
-              {data?.artistRole === "" ? "Sem informações" : data?.artistRole}
-            </h5>
-
-            <h5>
-              <b>Nacionalidade: </b>
-              {data?.artistNationality === ""
-                ? "Sem informações"
-                : data?.artistNationality}
-            </h5>
-
-            {data?.artistWikidata_URL && (
-              <Link target="_blank" href={data.artistWikidata_URL}>
-                <div className="more-info-artist">
-                  Mais informações sobre o artista
-                </div>
-              </Link>
-            )}
           </div>
+        </div>
+      ) : (
+        <div className="content-feedback">
+          <p>Nenhuma informação foi encontrada</p>
         </div>
       )}
     </Box>

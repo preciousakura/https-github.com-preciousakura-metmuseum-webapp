@@ -33,8 +33,7 @@ export const Box = styled.ul<{ ishome: number }>`
     &.colorMode {
       gap: 10px;
       display: flex;
-      background: ${(props) =>
-        props.theme.isDark ? "black" : props.theme.colors.primary[900]};
+      background: black;
       padding: 10px;
       border-radius: 30px;
       svg {

@@ -1,52 +1,71 @@
 import { styled } from "styled-components";
 
 export const Box = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding: 70px;
-  min-height: 900px;
+  min-height: 500px;
   max-width: 1640px;
   margin: 0 auto;
+  padding: 30px 70px;
+
+  @media (max-width: 1000px) {
+    padding: 30px 20px;
+  }
 
   .header {
     margin-bottom: 20px;
     width: 100%;
-    h1,
-    p {
+
+    h1 {
       color: ${(props) =>
         props.theme.isDark ? props.theme.colors.primary[500] : "black"};
       text-align: left;
-    }
-
-    h1 {
       font-size: 50px;
     }
   }
 
-  .cards-area-cards {
-    display: grid;
-    min-height: 900px;
-    align-items: baseline;
-    p {
+  .spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
       color: ${(props) =>
-        props.theme.isDark
-          ? props.theme.colors.trueGray[500]
-          : props.theme.colors.trueGray[300]};
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      padding-bottom: 50px;
+        props.theme.isDark ? props.theme.colors.primary[500] : "black"};
     }
   }
 
-  .cards-area-spinner {
-    display: grid;
-    min-height: 900px;
+  .content {
+    display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .content-feedback {
+      display: flex;
+      align-items: center;
+      min-height: 400px;
+      svg {
+        color: ${(props) =>
+          props.theme.isDark ? props.theme.colors.primary[500] : "black"};
+      }
+
+      p {
+        color: ${(props) =>
+          props.theme.isDark
+            ? props.theme.colors.trueGray[500]
+            : props.theme.colors.trueGray[300]};
+      }
+    }
+
+    .content-cards-area {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-rows: repeat(2, 1fr);
+      gap: 10px;
+      min-height: 903px;
+      align-items: flex-start;
+
+      padding-bottom: 60px;
+    }
   }
 
   .ant-pagination-options-size-changer {

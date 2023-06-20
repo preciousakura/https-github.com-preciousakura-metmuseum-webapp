@@ -1,12 +1,14 @@
 import { styled } from "styled-components";
 
 export const Box = styled.div`
-  width: 300px;
+  width: 100%;
+  height: 100%;
   min-height: 400px;
   padding: 10px;
   position: relative;
-
+  box-sizing: border-box;
   background: ${(props) => (props.theme.isDark ? "#121212" : "white")};
+
   .art-info {
     padding-top: 10px;
     display: flex;
@@ -38,7 +40,7 @@ export const Box = styled.div`
   }
 
   .no-image {
-    width: 300px;
+    width: 100%;
     height: 300px;
     display: flex;
     justify-content: center;
@@ -67,7 +69,7 @@ export const Box = styled.div`
 
     &.active {
       svg {
-        color: #e11d48;
+        color: ${(props) => props.theme.colors.primary[500]};
 
         &:hover {
           color: ${(props) => props.theme.colors.trueGray[400]};
@@ -78,7 +80,7 @@ export const Box = styled.div`
       svg {
         color: ${(props) => props.theme.colors.trueGray[400]};
         &:hover {
-          color: #e11d48;
+          color: ${(props) => props.theme.colors.primary[500]};
         }
       }
     }
@@ -127,7 +129,7 @@ export const Box = styled.div`
 `;
 
 export const ImageStyle = styled.div<{ src: string }>`
-  background: url(${(props) => props.src}) center;
+  background: url(${(props) => props.src}) center top;
   height: 300px;
   position: relative;
   background-size: cover;

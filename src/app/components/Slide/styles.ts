@@ -72,7 +72,7 @@ export const ImageData = styled.div`
   z-index: 10;
   position: absolute;
   right: 0;
-  bottom: 20px;
+  bottom: 37px;
   color: white;
   text-align: right;
   padding: 0 15px;
