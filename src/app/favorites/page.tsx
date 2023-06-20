@@ -1,8 +1,7 @@
 "use client";
 import { Box } from "./styles";
-import { ConfigProvider, Pagination, Spin, theme as antdTheme } from "antd";
+import { ConfigProvider, Pagination, theme as antdTheme } from "antd";
 import { ArtCard } from "../components";
-import { useExploreData } from "../hooks/useExploreData";
 import { useEffect, useMemo, useState } from "react";
 
 import { LoadingOutlined } from "@ant-design/icons";
@@ -17,20 +16,19 @@ export default function Favorites() {
 
   const [page, setPage] = useState(1);
 
-  const { data: artData, loading } = useExploreData(page, favorites);
-
   const onChange = (pageNumber: number) => {
     setPage(pageNumber);
   };
 
-  useEffect(() => {
-    if (!loading && artData.length < 1) setPage(1);
-    if (favorites.length <= 10) setPage(1);
-  }, [page, favorites, artData, loading]);
-
   const splitObjectData = useMemo(() => {
     return favorites.slice((page - 1) * 10, (page - 1) * 10 + 10);
   }, [favorites, page]);
+
+  useEffect(() => {
+    if (splitObjectData.length < 1)
+      page - 1 <= 0 ? setPage(1) : setPage(page - 1);
+    if (favorites.length <= 10) setPage(1);
+  }, [page, favorites, splitObjectData]);
 
   return (
     <Box>
@@ -61,6 +59,7 @@ export default function Favorites() {
             }}
           >
             <Pagination
+              current={page}
               total={favorites.length}
               onChange={onChange}
               defaultPageSize={10}

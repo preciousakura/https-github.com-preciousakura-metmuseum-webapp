@@ -6,16 +6,21 @@ import { ArtCard, SearchInput } from "../components";
 
 import { LoadingOutlined } from "@ant-design/icons";
 import { useTheme } from "../context/useTheme";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useSearch } from "../context/useSearch";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 export default function Explore() {
   const { theme } = useTheme();
-  const [page, setPage] = useState(1);
 
-  const { data: searchData, loading: searchLoading, isSearch } = useSearch();
+  const {
+    data: searchData,
+    loading: searchLoading,
+    isSearch,
+    onChangePage,
+    page,
+  } = useSearch();
   const { objectsData, loading: objectLoading } = useExplorePagination();
 
   const object = useMemo(() => {
@@ -23,14 +28,6 @@ export default function Explore() {
       ? { pageData: searchData, pageLoading: searchLoading }
       : { pageData: objectsData, pageLoading: objectLoading };
   }, [isSearch, objectLoading, objectsData, searchData, searchLoading]);
-
-  const onChangePage = (pageNumber: number) => {
-    setPage(pageNumber);
-  };
-
-  useEffect(() => {
-    setPage(1);
-  }, [isSearch]);
 
   const splitObjectData = useMemo(() => {
     return object.pageData && object.pageData.objectIDs
@@ -80,6 +77,7 @@ export default function Explore() {
               }}
             >
               <Pagination
+                current={page}
                 total={object.pageData?.total}
                 onChange={onChangePage}
                 defaultPageSize={10}

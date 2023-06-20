@@ -1,11 +1,10 @@
-import { AiOutlineClose } from "react-icons/ai";
 import { Box } from "./styles";
 
 import { ImSearch } from "react-icons/im";
 import { Checkbox, ConfigProvider, Select, theme as antdTheme } from "antd";
 import { useTheme } from "@/app/context/useTheme";
 import { useSearch } from "@/app/context/useSearch";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function SearchInput() {
   const { theme } = useTheme();
@@ -14,7 +13,9 @@ export function SearchInput() {
     onChangeFilterCheckBox,
     onChangeSearchValue,
     clearSearch,
-    defaultSearch,
+    filterCheckBox,
+    filterBy,
+    searchValue,
   } = useSearch();
 
   const options = [
@@ -22,14 +23,7 @@ export function SearchInput() {
     { label: "Obras com imagens", value: "hasImages" },
   ];
 
-  useEffect(() => {
-    onChangeFilterBy("");
-    onChangeFilterCheckBox([]);
-    defaultSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(searchValue);
 
   return (
     <Box>
@@ -54,8 +48,8 @@ export function SearchInput() {
             }}
           >
             <Select
+              value={filterBy}
               onChange={onChangeFilterBy}
-              defaultValue="all"
               options={[
                 { value: "all", label: "Todos os campos" },
                 { value: "artist", label: "Artista/Cultura" },
@@ -86,7 +80,11 @@ export function SearchInput() {
             },
           }}
         >
-          <Checkbox.Group onChange={onChangeFilterCheckBox} options={options} />
+          <Checkbox.Group
+            value={filterCheckBox}
+            onChange={onChangeFilterCheckBox}
+            options={options}
+          />
         </ConfigProvider>
       </div>
     </Box>

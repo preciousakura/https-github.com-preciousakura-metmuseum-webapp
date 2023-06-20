@@ -15,14 +15,18 @@ export interface ISearch {
   data?: IData;
   loading?: boolean;
   error: any;
-
+  page: number;
   isSearch: boolean;
 
-  onChangeSearchValue: (value?: string) => void;
+  onChangeSearchValue: (value: string) => void;
   onChangeFilterBy: (value: string) => void;
   onChangeFilterCheckBox: (value: CheckboxValueType[]) => void;
   clearSearch: () => void;
-  defaultSearch: () => void;
+  onChangePage: (value: number) => void;
+
+  searchValue: string;
+  filterCheckBox: string[];
+  filterBy: string;
 }
 
 const SearchContext = createContext<ISearch>({} as ISearch);
@@ -32,11 +36,13 @@ export function SearchProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const [searchValue, setSearchValue] = useState<string>();
+  const [searchValue, setSearchValue] = useState<string>("");
   const [filterCheckBox, setCheckbox] = useState<string[]>([]);
   const [filterBy, setFilterBy] = useState<string>("all");
 
   const [isSearch, setIsSearch] = useState(false);
+
+  const [page, setPage] = useState(1);
 
   const params = useMemo(() => {
     return {
@@ -46,7 +52,9 @@ export function SearchProvider({ children }: { children: ReactNode }) {
       artistOrCulture: filterBy === "artist",
       title: filterBy === "title",
       geoLocation:
-        filterBy !== "locale" || searchValue === "" ? undefined : searchValue,
+        filterBy !== "locale" || searchValue === ""
+          ? undefined
+          : searchValue.charAt(0).toUpperCase() + searchValue.slice(1),
     };
   }, [filterCheckBox, filterBy, searchValue]);
 
@@ -62,31 +70,36 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     }
   }, [params, isSearch]);
 
-  const defaultSearch = () => {
+  const clearSearch = () => {
+    setPage(1);
+    setSearchValue("");
+    onChangeFilterBy("all");
+    onChangeFilterCheckBox([]);
     setIsSearch(false);
   };
 
-  const clearSearch = () => {
-    setSearchValue("");
-    if (filterCheckBox.length > 0) setIsSearch(true);
-    else setIsSearch(false);
-  };
-
-  const onChangeSearchValue = (value?: string) => {
+  const onChangeSearchValue = (value: string) => {
     setSearchValue(value);
     setIsSearch(true);
+    setPage(1);
   };
 
   const onChangeFilterBy = (value: string) => {
     setFilterBy(value);
+    setPage(1);
   };
 
   const onChangeFilterCheckBox = (value: CheckboxValueType[]) => {
-    if (!isSearch) {
+    if (searchValue === "") {
       if (value.length > 0) setIsSearch(true);
       else setIsSearch(false);
     }
     setCheckbox(value as string[]);
+    setPage(1);
+  };
+
+  const onChangePage = (pageNumber: number) => {
+    setPage(pageNumber);
   };
 
   const providerValue = useMemo(
@@ -95,14 +108,27 @@ export function SearchProvider({ children }: { children: ReactNode }) {
       onChangeFilterBy,
       onChangeFilterCheckBox,
       clearSearch,
-      defaultSearch,
+      onChangePage,
+      filterCheckBox,
+      searchValue,
+      filterBy,
       data,
       loading,
       error,
       isSearch,
+      page,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data, loading, error, isSearch]
+    [
+      filterCheckBox,
+      searchValue,
+      filterBy,
+      data,
+      loading,
+      error,
+      isSearch,
+      page,
+    ]
   );
 
   return (

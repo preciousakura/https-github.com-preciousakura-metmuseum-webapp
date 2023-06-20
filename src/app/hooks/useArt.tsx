@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { objects } from "../services/objects";
 import { Art } from "../types/art";
-import { AxiosError } from "axios";
 
 export function useArt(id: number) {
   const [data, setData] = useState<Art>();
