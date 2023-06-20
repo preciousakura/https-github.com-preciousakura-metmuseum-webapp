@@ -24,9 +24,9 @@ export default function Favorites() {
   };
 
   useEffect(() => {
-    if (artData.length < 1) setPage(page - 1 === 0 ? 1 : page - 1);
+    if (!loading && artData.length < 1) setPage(1);
     if (favorites.length <= 10) setPage(1);
-  }, [page, favorites, artData]);
+  }, [page, favorites, artData, loading]);
 
   return (
     <Box>

@@ -5,7 +5,7 @@ import { ImSearch } from "react-icons/im";
 import { Checkbox, ConfigProvider, Select, theme as antdTheme } from "antd";
 import { useTheme } from "@/app/context/useTheme";
 import { useSearch } from "@/app/context/useSearch";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function SearchInput() {
   const { theme } = useTheme();
@@ -13,20 +13,21 @@ export function SearchInput() {
     onChangeFilterBy,
     onChangeFilterCheckBox,
     onChangeSearchValue,
-    onSearch,
+    clearSearch,
   } = useSearch();
 
   const options = [
     { label: "Hightlights", value: "isHighlight" },
-    { label: "Obras com imagens", value: "hasImage" },
+    { label: "Obras com imagens", value: "hasImages" },
   ];
 
   useEffect(() => {
     onChangeFilterBy("");
     onChangeFilterCheckBox([]);
-    onChangeSearchValue("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const [value, setValue] = useState("");
 
   return (
     <Box>
@@ -36,12 +37,10 @@ export function SearchInput() {
             <ImSearch />
           </div>
           <input
+            value={value}
             placeholder="Buscar"
-            onChange={(e) => onChangeSearchValue(e.target.value)}
+            onChange={(e) => setValue(e.target.value)}
           />
-          <div className="icon clear">
-            <AiOutlineClose />
-          </div>
         </div>
         <div className="select-filter-search" defaultValue="Todos os campos">
           <ConfigProvider
@@ -64,7 +63,15 @@ export function SearchInput() {
             />
           </ConfigProvider>
         </div>
-        <button>PESQUISAR</button>
+        <button onClick={() => onChangeSearchValue(value)}>PESQUISAR</button>
+        <button
+          onClick={() => {
+            setValue("");
+            clearSearch("");
+          }}
+        >
+          LIMPAR
+        </button>
       </div>
 
       <div className="content-filter">

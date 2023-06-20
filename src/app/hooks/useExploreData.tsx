@@ -9,6 +9,7 @@ export function useExploreData(currentPage: number, objectsId?: number[]) {
 
   useEffect(() => {
     if (objectsId && objectsId.length > 0) {
+      setData([]);
       setLoading(true);
       const promises: Promise<Art>[] = objectsId
         .slice((currentPage - 1) * 10, (currentPage - 1) * 10 + 10)

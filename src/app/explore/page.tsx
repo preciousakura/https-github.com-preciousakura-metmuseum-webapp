@@ -7,25 +7,31 @@ import { useExploreData } from "../hooks/useExploreData";
 
 import { LoadingOutlined } from "@ant-design/icons";
 import { useTheme } from "../context/useTheme";
+import { useEffect, useState } from "react";
 import { useSearch } from "../context/useSearch";
-import { useEffect } from "react";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 export default function Explore() {
   const { theme } = useTheme();
-  const { data: searchData, page, onChangePage } = useSearch();
-  const { objectsData, loading: pageLoading } = useExplorePagination();
+  const [page, setPage] = useState(1);
 
-  // const object = searchData && searchData.total > 0 ? searchData : objectsData;
-  const object = objectsData;
+  const { data: searchData, loading: searchLoading, isSearch } = useSearch();
+  const { objectsData, loading: objectLoading } = useExplorePagination();
 
-  const { data: artData, loading } = useExploreData(page, object?.objectIDs);
+  const object = isSearch
+    ? { pageData: searchData, pageLoading: searchLoading }
+    : { pageData: objectsData, pageLoading: objectLoading };
+
+  const { data, loading } = useExploreData(page, object.pageData?.objectIDs);
+
+  const onChangePage = (pageNumber: number) => {
+    setPage(pageNumber);
+  };
 
   useEffect(() => {
-    onChangePage(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setPage(1);
+  }, [isSearch]);
 
   return (
     <Box>
@@ -40,7 +46,7 @@ export default function Explore() {
         <SearchInput />
       </div>
 
-      {pageLoading ? (
+      {object.pageLoading ? (
         <div className="spinner">
           <Spin indicator={antIcon} />
         </div>
@@ -50,9 +56,9 @@ export default function Explore() {
             <div className="content-feedback">
               <Spin indicator={antIcon} />
             </div>
-          ) : object?.total && object.total > 0 ? (
+          ) : object.pageData?.total && object.pageData?.total > 0 ? (
             <div className="content-cards-area">
-              {artData.map((d) => {
+              {data.map((d) => {
                 return <ArtCard key={d.objectID} art={d} />;
               })}
             </div>
@@ -62,7 +68,7 @@ export default function Explore() {
             </div>
           )}
 
-          {object?.total && object.total > 0 && (
+          {object.pageData?.total && object.pageData?.total > 0 && (
             <ConfigProvider
               theme={{
                 algorithm: theme.isDark ? antdTheme.darkAlgorithm : undefined,
@@ -73,7 +79,7 @@ export default function Explore() {
               }}
             >
               <Pagination
-                total={object?.total}
+                total={object.pageData?.total}
                 onChange={onChangePage}
                 defaultPageSize={10}
               />

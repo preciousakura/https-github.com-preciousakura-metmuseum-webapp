@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import Image from "next/image";
 
 export const Box = styled.div`
   margin: 0 auto;
@@ -43,62 +44,6 @@ export const Box = styled.div`
 
     @media (max-width: 960px) {
       flex-direction: column;
-    }
-
-    .content-image {
-      position: relative;
-      min-width: 500px;
-      height: 500px;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      @media (max-width: 600px) {
-        flex-direction: column;
-        width: 100%;
-        min-width: auto;
-      }
-
-      background: ${(props) =>
-        props.theme.isDark
-          ? props.theme.colors.trueGray[900]
-          : props.theme.colors.trueGray[100]};
-
-      svg {
-        color: ${(props) =>
-          props.theme.isDark
-            ? props.theme.colors.trueGray[700]
-            : props.theme.colors.trueGray[300]};
-      }
-
-      .favorite {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 5px;
-        cursor: pointer;
-        border: none;
-        background: none;
-
-        &.active {
-          svg {
-            color: ${(props) => props.theme.colors.primary[500]};
-
-            &:hover {
-              color: ${(props) => props.theme.colors.trueGray[400]};
-            }
-          }
-        }
-        &.inactive {
-          svg {
-            color: ${(props) => props.theme.colors.trueGray[400]};
-            &:hover {
-              color: ${(props) => props.theme.colors.primary[500]};
-            }
-          }
-        }
-      }
     }
 
     .content-text {
@@ -179,6 +124,72 @@ export const Box = styled.div`
         border-style: solid;
         box-sizing: border-box;
       }
+    }
+  }
+`;
+
+export const ImageStyle = styled(Image)``;
+
+export const ContentImage = styled.div<{ width: number; height: number }>`
+  position: relative;
+  min-width: ${(props) => (props.width === 0 ? 500 : props.width)}px;
+  height: ${(props) => (props.height === 0 ? 500 : props.height)}px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 960px) {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-width: auto;
+  }
+
+  background: ${(props) =>
+    props.theme.isDark
+      ? props.theme.colors.trueGray[900]
+      : props.theme.colors.trueGray[100]};
+
+  svg {
+    color: ${(props) =>
+      props.theme.isDark
+        ? props.theme.colors.trueGray[700]
+        : props.theme.colors.trueGray[300]};
+  }
+
+  .favorite {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    cursor: pointer;
+    border: none;
+    background: none;
+
+    &.active {
+      svg {
+        color: ${(props) => props.theme.colors.primary[500]};
+
+        &:hover {
+          color: ${(props) => props.theme.colors.trueGray[400]};
+        }
+      }
+    }
+    &.inactive {
+      svg {
+        color: ${(props) => props.theme.colors.trueGray[400]};
+        &:hover {
+          color: ${(props) => props.theme.colors.primary[500]};
+        }
+      }
+    }
+  }
+
+  @media (max-width: 960px) {
+    img {
+      width: 100%;
+      height: auto;
     }
   }
 `;

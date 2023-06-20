@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { usePost } from "@/app/hooks/usePost";
 import { useFavorites } from "@/app/context/useFavorites";
-import { Box } from "./styles";
+import { Box, ContentImage, ImageStyle } from "./styles";
 import { Spin, Tooltip } from "antd";
-import Image from "next/image";
 import { MdOutlineHideImage } from "react-icons/md";
 import { RiStarFill, RiUserFill } from "react-icons/ri";
 import { FaPaintBrush } from "react-icons/fa";
@@ -12,6 +11,7 @@ import { BsInfoCircleFill } from "react-icons/bs";
 import { BiWorld } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
 import Link from "next/link";
+
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 interface ArtPostProps {
@@ -62,6 +62,19 @@ export function ArtPost({ id }: ArtPostProps) {
     { label: "Data", value: data?.objectDate },
   ];
 
+  const img = useMemo(() => {
+    if (data) {
+      const image = new Image();
+      image.src = data.primaryImageSmall;
+      return {
+        src: data.primaryImageSmall,
+        width: image.width,
+        height: image.height,
+      };
+    }
+    return { src: "", width: 0, height: 0 };
+  }, [data]);
+
   return (
     <Box>
       {loading ? (
@@ -84,11 +97,17 @@ export function ArtPost({ id }: ArtPostProps) {
               </div>
             </Tooltip>
           )}
-          <div className="content-image">
+          <ContentImage width={img.width} height={img.height}>
             {data.primaryImage === "" ? (
               <MdOutlineHideImage size={80} />
             ) : (
-              <Image src={data.primaryImage} alt={data.title} fill />
+              <ImageStyle
+                src={img.src}
+                width={img.width}
+                height={img.height}
+                alt={data.title}
+                sizes="(max-width: 800px) 100vw, 100vh"
+              />
             )}
             <Tooltip
               title={fav ? "Remover dos favoritos" : "Marcar como favorito"}
@@ -100,7 +119,7 @@ export function ArtPost({ id }: ArtPostProps) {
                 <AiFillHeart size={27} />
               </button>
             </Tooltip>
-          </div>
+          </ContentImage>
           <div className="content-text">
             <div className="content-text-header">
               <h2>{data.title}</h2>
