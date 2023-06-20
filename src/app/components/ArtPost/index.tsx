@@ -37,10 +37,10 @@ export function ArtPost({ id }: ArtPostProps) {
   const artist = [
     {
       label: "Nome",
-      value: `${data?.artistDisplayName} ${
+      value: `${data?.artistDisplayName}${
         data?.artistBeginDate &&
         data.artistEndDate &&
-        `(${data.artistBeginDate}-${data.artistEndDate})`
+        ` (${data.artistBeginDate}-${data.artistEndDate})`
       }`,
     },
     { label: "Gênero", value: data?.artistGender },
