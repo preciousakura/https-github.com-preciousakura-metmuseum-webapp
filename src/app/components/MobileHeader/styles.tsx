@@ -7,7 +7,11 @@ export const Box = styled.div<{ ishome: number; isopen: number }>`
 
   background: ${(props) =>
     props.ishome
-      ? "none"
+      ? props.isopen
+        ? props.theme.isDark
+          ? "#121212"
+          : props.theme.colors.primary[500]
+        : "none"
       : props.theme.isDark
       ? "#121212"
       : props.theme.colors.primary[500]};
@@ -100,7 +104,7 @@ export const Box = styled.div<{ ishome: number; isopen: number }>`
           display: flex;
           width: max-content;
           gap: 10px;
-          background: ${props => props.theme.isDark ? 'black' : 'white'};
+          background: ${(props) => (props.theme.isDark ? "black" : "white")};
           padding: 10px;
           border-radius: 30px;
           svg {
