@@ -4,11 +4,8 @@ import { ConfigProvider, Pagination, theme as antdTheme } from "antd";
 import { ArtCard } from "../components";
 import { useEffect, useMemo, useState } from "react";
 
-import { LoadingOutlined } from "@ant-design/icons";
 import { useFavorites } from "../context/useFavorites";
 import { useTheme } from "../context/useTheme";
-
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 export default function Favorites() {
   const { theme } = useTheme();

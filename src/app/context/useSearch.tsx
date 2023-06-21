@@ -60,6 +60,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (isSearch) {
+      setPage(1);
       setData(undefined);
       setLoading(true);
       search
@@ -81,12 +82,10 @@ export function SearchProvider({ children }: { children: ReactNode }) {
   const onChangeSearchValue = (value: string) => {
     setSearchValue(value);
     setIsSearch(true);
-    setPage(1);
   };
 
   const onChangeFilterBy = (value: string) => {
     setFilterBy(value);
-    setPage(1);
   };
 
   const onChangeFilterCheckBox = (value: CheckboxValueType[]) => {
@@ -95,7 +94,6 @@ export function SearchProvider({ children }: { children: ReactNode }) {
       else setIsSearch(false);
     }
     setCheckbox(value as string[]);
-    setPage(1);
   };
 
   const onChangePage = (pageNumber: number) => {
