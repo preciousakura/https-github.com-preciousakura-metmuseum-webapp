@@ -17,6 +17,17 @@ export const Box = styled.div`
     color: ${(props) => (props.theme.isDark ? "white" : "black")};
   }
 
+  button {
+    background: none;
+    border: none;
+    color: ${(props) => props.theme.colors.primary[500]};
+    padding: 10px 0;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
   .content-feedback {
     justify-content: center;
     align-items: center;

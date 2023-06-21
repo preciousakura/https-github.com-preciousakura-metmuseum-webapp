@@ -56,6 +56,7 @@ export default function Favorites() {
             }}
           >
             <Pagination
+              showQuickJumper
               current={page}
               total={favorites.length}
               onChange={onChange}

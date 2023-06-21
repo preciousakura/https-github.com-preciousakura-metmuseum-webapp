@@ -11,6 +11,7 @@ import { BsInfoCircleFill } from "react-icons/bs";
 import { BiWorld } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -19,6 +20,7 @@ interface ArtPostProps {
 }
 
 export function ArtPost({ id }: ArtPostProps) {
+  const router = useRouter();
   const { data, loading } = usePost(id);
 
   const [fav, setFav] = useState(false);
@@ -77,6 +79,7 @@ export function ArtPost({ id }: ArtPostProps) {
 
   return (
     <Box>
+      <button onClick={() => router.back()}>voltar</button>
       {loading ? (
         <div className="content-feedback">
           <Spin indicator={antIcon} />

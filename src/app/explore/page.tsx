@@ -77,6 +77,7 @@ export default function Explore() {
               }}
             >
               <Pagination
+                showQuickJumper
                 current={page}
                 total={object.pageData?.total}
                 onChange={onChangePage}
