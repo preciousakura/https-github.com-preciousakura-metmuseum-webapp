@@ -94,6 +94,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
       else setIsSearch(false);
     }
     setCheckbox(value as string[]);
+    setPage(1);
   };
 
   const onChangePage = (pageNumber: number) => {
